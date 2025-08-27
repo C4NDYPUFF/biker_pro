@@ -75,8 +75,35 @@ def load_data (
 
     # Selección de Variables del Clima 
     weather_cols_exact = [
-        ''
+        "Temperature(°C)",
+        "Humidity(%)",
+        "Wind speed (m/s)",
+        "Visibility (10m)",
+        "Dew point temperature(°C)",
+        "Solar Radiation (MJ/m2)",
+        "Rainfall(mm)",
+        "Snowfall (cm)",
     ]
 
+    missing = [c for c in weather_cols_exact if c not in df.columns]
+    if missing:
+        raise ValueError(f'Faltan columnas de clima en el DataFrame: {missing}'
+                         f'Columnas disponibles: {df.columns.tolist()}')
+    
+    #7 Subconjuntos 
+    X = df[weather_cols_exact].copy()
+    y = df[target_col].copy()
+    dt = df['dt'].copy()
+
+    #8 Chequeo de variables nulas por robustex 
+    mask_valid = X.notna().all(axis=1) & y.notna()
+    if not mask_valid.all():
+        n_bad = int(~mask_valid).sum()
+        X = X[mask_valid].reset_index(drop=True)
+        y = y[mask_valid].reset_index(drop=True)
+        dt = dt[mask_valid].reset_index(drop=True)
+        print(f"[Aviso] Se removieron {n_bad} filas con nulos en clima/target.")
+    
+    return X, y , dt 
 
 
