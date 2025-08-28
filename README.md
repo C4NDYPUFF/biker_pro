@@ -44,7 +44,18 @@ El proyecto usa **Python 3.10+** y las siguientes librerías principales:
 - scikit-learn  
 - matplotlib  
 
-Puedes instalar las dependencias con:
+Antes de instalar las dependencias puedes crear un entorno virtual para correr el script de manera aislada, para crearlo ejecuta el siguiente comando en tu terminal:
+
+```bash
+python -m venv ~/.ruta-envs/nombre-ambiente
+
+# Si por ejemplo tu ruta es python-envs y tu ambiente biker lo activas asi 
+
+source ~/.python-envs/biker/bin/activate
+```
+
+
+Una vez en tu ambiente puedes instalar las dependencias con:
 
 ```bash
 pip install -r requirements.txt
