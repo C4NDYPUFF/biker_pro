@@ -1,27 +1,41 @@
-# 🚴‍♂️ biker_pro
+#  biker_pro
 
 Predicción de la **demanda de bicicletas** en función de variables climáticas utilizando **K-Nearest Neighbors (KNN)**.  
 Este proyecto carga datos históricos de renta de bicicletas y clima, realiza un split temporal, entrena modelos KNN para distintos valores de `k` y evalúa el error (RMSE). Finalmente genera reportes y gráficas.
 
 ---
 
-## 📂 Estructura del proyecto
+## Índice
 
+- [ Estructura del proyecto](#-estructura-del-proyecto)
+- [ Requerimientos](#-requerimientos)
+- [ Uso](#️-uso)
+- [ Parámetros](#-parámetros)
+- [ Resultados](#-resultados)
+- [ Desarrollo](#️-desarrollo)
+- [ Notas](#-notas)
+
+---
+
+##  Estructura del proyecto
+
+```plaintext
 biker_pro/
-├── notebooks/        # Experimentos y análisis exploratorio
-├── results/          # Resultados generados (CSV, PNGs)
+├── notebooks/            # Experimentos y análisis exploratorio
+├── results/              # Resultados generados (CSV, PNGs)
 ├── src/
 │   └── error_knn_weather.py  # Script principal
-├── requirements.txt  # Dependencias del proyecto
+├── requirements.txt      # Dependencias del proyecto
 ├── .gitignore
 └── README.md
+```
 
 
 
 
 ---
 
-## ⚙️ Requerimientos
+##  Requerimientos
 
 El proyecto usa **Python 3.10+** y las siguientes librerías principales:
 
@@ -36,7 +50,7 @@ Puedes instalar las dependencias con:
 pip install -r requirements.txt
 ```
 
-▶️ Uso
+## Uso
 
 El script principal se encuentra en src/error_knn_weather.py.
 Puedes ejecutarlo desde línea de comandos:
@@ -54,7 +68,22 @@ python src/error_knn_weather.py \
     --show_hour_counts
 ```
 
-Parámetros
+Si da problemas la ejecución con modulos puedes intentar ejecutarlo desde la raiz del proyecto biker_pro/ con el siguiente comando:
+```bash
+
+python -m src.error_knn_weather \
+    --data "ruta/al/SeoulBikeData.csv" \
+    --date_col "Date" \
+    --hour_col "Hour" \
+    --target "Rented Bike Count" \
+    --k_values "3,5,10,15,20,50,100,300,500,1000" \
+    --test_size 0.2 \
+    --out_png "results/rmse_vs_k.png" \
+    --out_csv "results/results.csv" \
+    --show_hour_counts
+```
+
+## Parámetros
 
 | Parámetro            | Descripción                                             | Default                              |
 | -------------------- | ------------------------------------------------------- | ------------------------------------ |
@@ -69,6 +98,7 @@ Parámetros
 | `--show_hour_counts` | Flag opcional para imprimir conteo de horas en consola. | `False`                              |
 
 
+## Resultados
 
 
 Al ejecutar el script se generan:
@@ -92,3 +122,20 @@ Gráfica: results/rmse_vs_k.png
 Resultados: results/results.csv
 ==============================================
 ```
+
+notebooks/ → espacio para exploración y pruebas rápidas en Jupyter.
+
+src/error_knn_weather.py → código limpio, modular y reutilizable.
+
+results/ → directorio autogenerado para almacenar gráficos y métricas.
+
+
+---
+
+## Notas
+
+El dataset usado en este proyecto es el Seoul Bike Sharing Demand Data (UCI Repository).
+
+El split de datos es temporal, no aleatorio. Esto asegura que los datos de test sean posteriores en el tiempo.
+
+El modelo KNN usa StandardScaler para normalizar variables antes del entrenamiento.
