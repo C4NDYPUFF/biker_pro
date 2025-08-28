@@ -34,13 +34,14 @@ Puedes instalar las dependencias con:
 
 ```bash
 pip install -r requirements.txt
+```
 
 ▶️ Uso
 
 El script principal se encuentra en src/error_knn_weather.py.
 Puedes ejecutarlo desde línea de comandos:
 
-
+```python
 python src/error_knn_weather.py \
     --data "ruta/al/SeoulBikeData.csv" \
     --date_col "Date" \
@@ -51,7 +52,7 @@ python src/error_knn_weather.py \
     --out_png "results/rmse_vs_k.png" \
     --out_csv "results/results.csv" \
     --show_hour_counts
-
+```
 
 Parámetros
 
@@ -81,7 +82,7 @@ results/train_actual_vs_pred_kX.png → gráfica de entrenamiento (real vs predi
 results/test_actual_vs_pred_kX.png → gráfica de prueba (real vs predicho).
 
 Ejemplo de salida en consola:
-
+```yaml
 ==============================================
 Train: 2017-12-01 → 2018-10-31  (n=8,431)
 Test : 2018-11-01 → 2018-12-31  (n=2,107)
@@ -90,3 +91,4 @@ Mejor k: 15  |  RMSE = 133.2512
 Gráfica: results/rmse_vs_k.png
 Resultados: results/results.csv
 ==============================================
+```
